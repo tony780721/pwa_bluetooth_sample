@@ -33,6 +33,7 @@ self.addEventListener("install", (event) => {
   self.skipWaiting();
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
+	console.log("Add RESOURCES...1");
       return cache.addAll(
         CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
@@ -165,6 +166,7 @@ async function downloadOffline() {
       resources.push(resourceKey);
     }
   }
+  console.log("Add RESOURCES...2");
   return contentCache.addAll(resources);
 }
 
