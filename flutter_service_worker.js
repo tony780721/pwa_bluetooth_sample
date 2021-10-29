@@ -12,8 +12,8 @@ const RESOURCES = {
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"index.html": "1181dc6a7ade4f6abd0ef0cae465dc52",
-"/": "1181dc6a7ade4f6abd0ef0cae465dc52",
+"index.html": "6a79bf1e7e6066a337aa719ad7d471a5",
+"/": "6a79bf1e7e6066a337aa719ad7d471a5",
 "main.dart.js": "ccc26b9ddc679dbf553539adbce94351",
 "manifest.json": "52571732fd4cf05ed748b11273077cd9",
 "version.json": "5d8d34e82231924748f3d9749c4c77da"
@@ -22,17 +22,18 @@ const RESOURCES = {
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = [
-"main.dart.js",
-"index.html",
-"assets/NOTICES",
-"assets/AssetManifest.json",
-"assets/FontManifest.json","/"];
+  "./",
+"./main.dart.js",
+"./index.html",
+"./assets/NOTICES",
+"./assets/AssetManifest.json",
+"./assets/FontManifest.json"];
 // During install, the TEMP cache is populated with the application shell files.
 self.addEventListener("install", (event) => {
   self.skipWaiting();
+  console.log('install...');
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
-	console.log("Add RESOURCES...1");
       return cache.addAll(
         CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
@@ -165,7 +166,6 @@ async function downloadOffline() {
       resources.push(resourceKey);
     }
   }
-  console.log("Add RESOURCES...2");
   return contentCache.addAll(resources);
 }
 
